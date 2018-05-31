@@ -1,5 +1,6 @@
 import re
 import warnings
+import math
 
 numbers = re.compile(r'(\d+)')
 
@@ -41,7 +42,7 @@ def no_of_events_followers(event_file, t_observation, t_prediction, time_factor=
         warnings.warn("No event have occurred till the observation time. The file WILL BE IGNORED")
         print("Ignored File Name:", event_file)
     else:
-        return original_follower, follower_t, event_no_t_obs, event_t_pred
+        return math.log(original_follower), math.log(follower_t), math.log(event_no_t_obs), math.log(event_t_pred)
 
 
 def no_of_events_followers_in_window(event_file, t_observation, win_size, max_itr, time_factor=1):
@@ -55,17 +56,13 @@ def no_of_events_followers_in_window(event_file, t_observation, win_size, max_it
     :return: total no of re-tweets at observation time, multiple prediction value
     """
     event_no_t_obs = 0
-    event_no_t_obs_list =[]
     follower_t = 0
-    follower_t_list = []
     original_follower = 0
-    original_follower_list =[]
     event_t_pred = 0
     event_t_pred_list =[]
     time = t_observation * time_factor  # converting in seconds
     win_size_sec = win_size * time_factor
     t_f_list = [time + (i * win_size_sec) for i in range(1, max_itr + 1)]
-
     for i in range(len(t_f_list)):
         with open(event_file, "r") as in_file:
             first = next(in_file)  # to remove the first line containing total no of re-tweet and no of follower
@@ -74,18 +71,19 @@ def no_of_events_followers_in_window(event_file, t_observation, win_size, max_it
                 if num == 1:
                     original_follower = int(values[1])
                 if float(values[0]) <= time:
-                    follower_t = follower_t + int(values[1])
                     event_no_t_obs = num
-                if float(values[0]) <= (t_f_list[i] * time_factor):
+                    follower_t = follower_t + int(values[1])
+                if float(values[0]) <= t_f_list[i]:
                     event_t_pred = num
 
             if event_no_t_obs == 0:  # ignoring the file if there is no event happened during the observation time
                 warnings.warn("No event have occurred till the observation time. The file WILL BE IGNORED")
                 print("Ignored File Name:", event_file)
+                break
             else:
-                original_follower_list.append(original_follower)
-                follower_t_list.append(follower_t)
-                event_no_t_obs_list.append(event_no_t_obs)
-                event_t_pred_list.append(event_t_pred)
+                event_t_pred_list.append(math.log(event_t_pred))
 
-    return original_follower_list, follower_t_list, event_no_t_obs_list, event_t_pred_list  #
+    if event_no_t_obs == 0:  # ignoring the file if there is no event happened during till the observation time
+        pass
+    else:
+        return math.log(original_follower), math.log(follower_t), math.log(event_no_t_obs), event_t_pred_list
