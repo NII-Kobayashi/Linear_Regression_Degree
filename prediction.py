@@ -1,14 +1,18 @@
 import math
 
 
-def prediction_LR_N(parameter_estimmated, paramerer_pred):
-    follower_orig_log = [(paramerer_pred[i][0]) for i in range(len(paramerer_pred))]
-    total_follower_t_log = [(paramerer_pred[i][1]) for i in range(len(paramerer_pred))]
-    no_events_log = [(paramerer_pred[i][2]) for i in range(len(paramerer_pred))]
+def prediction_lr_n(parameter_estimated, no_events, total_follower_t, follower_orig):
 
-    r_est = [math.exp(parameter_estimmated[0][0] + (parameter_estimmated[0][1] * no_events_log[i]) +
-                      (parameter_estimmated[0][2] *total_follower_t_log[i]) +
-                      (parameter_estimmated[0][3] * follower_orig_log[i])+ (parameter_estimmated[1]/2))
-             for i in range(len(no_events_log))]
+    if len(parameter_estimated[1]) == 1:
+        est_rf = math.exp(parameter_estimated[0][0] + (parameter_estimated[0][1] * no_events) +
+                           (parameter_estimated[0][2] * total_follower_t) +
+                           (parameter_estimated[0][3] * follower_orig) + (parameter_estimated[1] / 2))
+        return est_rf
 
-    return r_est
+    else:
+        est_rf = [math.exp(parameter_estimated[0][j][0] + (parameter_estimated[0][j][1] * no_events)
+                           + (parameter_estimated[0][j][2] * total_follower_t)
+                           + (parameter_estimated[0][j][3] * follower_orig) + (
+                                   parameter_estimated[1][j] / 2))
+                  for j in range(len(parameter_estimated[0]))]
+        return est_rf

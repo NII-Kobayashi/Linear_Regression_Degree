@@ -59,7 +59,8 @@ def no_of_events_followers_in_window(event_file, t_observation, win_size, max_it
     follower_t = 0
     original_follower = 0
     event_t_pred = 0
-    event_t_pred_list =[]
+    event_t_pred_list = []
+    event_t_pred_list_log = []
     time = t_observation * time_factor  # converting in seconds
     win_size_sec = win_size * time_factor
     t_f_list = [time + (i * win_size_sec) for i in range(1, max_itr + 1)]
@@ -70,9 +71,10 @@ def no_of_events_followers_in_window(event_file, t_observation, win_size, max_it
                 values = line.split(" ")
                 if num == 1:
                     original_follower = int(values[1])
-                if float(values[0]) <= time:
-                    event_no_t_obs = num
-                    follower_t = follower_t + int(values[1])
+                if i == 0:
+                    if float(values[0]) <= time:
+                        event_no_t_obs = num
+                        follower_t = follower_t + int(values[1])
                 if float(values[0]) <= t_f_list[i]:
                     event_t_pred = num
 
@@ -81,9 +83,11 @@ def no_of_events_followers_in_window(event_file, t_observation, win_size, max_it
                 print("Ignored File Name:", event_file)
                 break
             else:
-                event_t_pred_list.append(math.log(event_t_pred))
+                event_t_pred_list_log.append(math.log(event_t_pred))
+                event_t_pred_list.append(event_t_pred)
 
     if event_no_t_obs == 0:  # ignoring the file if there is no event happened during till the observation time
         pass
     else:
-        return math.log(original_follower), math.log(follower_t), math.log(event_no_t_obs), event_t_pred_list
+        return math.log(original_follower), math.log(follower_t), \
+               math.log(event_no_t_obs), event_t_pred_list_log, event_t_pred_list
