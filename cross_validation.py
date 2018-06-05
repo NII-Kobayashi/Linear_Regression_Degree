@@ -58,7 +58,7 @@ def cross_validation_error(k_fold, event_list_data, max_value_itr):
 
         # prediction
 
-        est_rf_list = [prediction_lr_n(parameters_estimated, test_event_t[i], test_tot_foll[i], test_original_foll[i])
+        est_rf_list = [prediction_lr_n_cross_validation(parameters_estimated, test_event_t[i], test_tot_foll[i], test_original_foll[i])
                        for i in range(len(test_event_t))]
 
         # Error estimation and correlation
