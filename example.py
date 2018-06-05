@@ -42,3 +42,5 @@ parameters_value_pred = [no_of_events_followers(file_list_test[i], T_OBS, T_PRED
 
 nfile_prediction_result = [prediction_lr_n(parameters_estimated, no_events_log[i], total_follower_t_log[i],
                                            follower_orig_log[i]) for i in range(len(no_events_log))]
+
+len(parameters_estimated[0])
