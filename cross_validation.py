@@ -7,7 +7,7 @@ Implements functions to check the accuracy of the model by using cross- validati
 
 References
 ----------
-.. *Szabo and Huberman, Communication of the ACM 53, 80 2010; Zhao et al., in KDD' 15 2015 pp. 1513-1522*.
+.. *Zhao et al., in KDD' 15 2015 pp. 1513-1522*.
 """
 
 from sklearn.model_selection import KFold
@@ -20,9 +20,9 @@ def cross_validation_error(k_fold, event_list_data, max_value_itr):
     """
        estimate the mean, media error and mean, median correlation
        :param k_fold: the number of times we want to use the cross-validation
-       :param event_list_data: list log and anti log values, for the re-tweet at time t and re-tweet at multiple
-       prediction time, from all the data files
-       :param max_value_itr:
+       :param event_list_data: list containing the total no of followers, original followers, no of event until the
+       observation time and the multiple prediction value according to the window size
+       :param max_value_itr: the number of iteration for the prediction value
        :return: the average mean, media error and correlation
        """
     est_list_all = []
@@ -108,3 +108,4 @@ def cross_validation_error(k_fold, event_list_data, max_value_itr):
     med_cor = statistics.median(correlation_list)
     mea_cor = statistics.mean(correlation_list)
     return "media:", med, "mean:", mea, "media_corr:", med_cor, "mean_corr:", mea_cor
+

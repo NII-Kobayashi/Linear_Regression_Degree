@@ -1,3 +1,19 @@
+# Author: Niharika Singhal
+#
+# For license information, see LICENSE.txt
+
+"""
+Implements functions for calculating the number of events and number of followers within the observation time and the
+prediction time.
+
+Provides different function for calculating the number of events, with single and multiple prediction time with the
+window concept
+
+References
+----------
+.. *Zhao et al., in KDD' 15 2015 pp. 1513-1522*.
+"""
+
 import re
 import warnings
 import math
@@ -18,9 +34,10 @@ def no_of_events_followers(event_file, t_observation, t_prediction, time_factor=
     """
     calculate the tweet number
     :param event_file: path to file
+    :param t_observation: observation time
     :param t_prediction: prediction time
     :param time_factor: factor to multiply time with, useful to convert time unit
-    :return: original number of follower, number of event until observation time,
+    :return: original number of follower, number of event and the total followers until the observation time
     """
     event_no_t_obs = 0
     follower_t = 0  # will store number of follower before observation time
@@ -53,7 +70,8 @@ def no_of_events_followers_in_window(event_file, t_observation, win_size, max_it
     :param time_factor: factor to multiply time to convert the time unit in seconds
     :param win_size: the window size for multiple prediction value
     :param max_itr: define the iteration for the window size
-    :return: total no of re-tweets at observation time, multiple prediction value
+    :return: original number of follower, number of event and the total followers until the observation time and
+     multiple prediction value for the bin size
     """
     event_no_t_obs = 0
     follower_t = 0

@@ -1,8 +1,23 @@
+# Author: Niharika Singhal
+#
+# For license information, see LICENSE.txt
+
+"""
+
+Full example on how to use linear regression model with degree for predicting re-tweet activity
+Please replace file paths according to your local directory structure.
+
+References
+----------
+.. *Zhao et al., in KDD' 15 2015 pp. 1513-1522*.
+"""
+
 from function import *
 from estimate import *
 from prediction import *
 import glob as gb
 import numpy as np
+
 # estimation
 T_OBS = 6
 T_PRED = 10

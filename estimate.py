@@ -1,8 +1,27 @@
+# Author: Niharika Singhal
+#
+# For license information, see LICENSE.txt
+
+"""
+Implements functions for estimating the parameters used in linear regression model
+
+References
+----------
+.. *Zhao et al., in KDD' 15 2015 pp. 1513-1522*.
+"""
 import numpy as np
 from scipy import linalg
 
 
 def parameter_estimation_lr_n(follower_orig, total_follower_t, no_events, event_pred):
+    """
+    calculate the parameters value for the linear regression model
+    :param follower_orig: array containing the original number of follower of the original tweet
+    :param total_follower_t: array containing the total number of follower until the observation time
+    :param no_events: array containing the total number of re-tweet intil the observation time
+    :param event_pred: array containing the actual value of total number of re-tweet at the prediction time
+    :return: the linear regression model parameters (theta and variance)
+    """
 
     a = np.matrix([
         [len(follower_orig), sum(no_events), sum(total_follower_t), sum(follower_orig)],
@@ -19,9 +38,8 @@ def parameter_estimation_lr_n(follower_orig, total_follower_t, no_events, event_
     y3 = sum([(total_follower_t[i] * event_pred[i]) for i in range(len(event_pred))])
     y4 = sum([(follower_orig[i] * event_pred[i]) for i in range(len(event_pred))])
 
-    if type(y1) is np.float64:
+    if isinstance(y1, np.float64):
         print(y1)
-        print(type(y1))
         y = (np.matrix([y1, y2, y3, y4])).transpose()
         theta = linalg.solve(a, y)
         sigma_val = [(event_pred[i] - theta[0] - (theta[1] * no_events[i]) - (theta[2] * total_follower_t[i]) -
