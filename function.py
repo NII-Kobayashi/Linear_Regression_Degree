@@ -51,9 +51,9 @@ def no_of_events_followers(event_file, t_observation, t_prediction, time_factor=
                 original_follower = int(values[1])
             if float(values[0]) <= (t_observation * time_factor):
                 follower_t = follower_t + int(values[1])
-                event_no_t_obs = num
+                event_no_t_obs = num - 1  # to remove the original tweet
             if float(values[0]) <= (t_prediction * time_factor):
-                event_t_pred = num
+                event_t_pred = num - 1  # to remove the original tweet
 
     if event_no_t_obs == 0:
         warnings.warn("No event have occurred till the observation time. The file WILL BE IGNORED")
@@ -91,10 +91,10 @@ def no_of_events_followers_in_window(event_file, t_observation, win_size, max_it
                     original_follower = int(values[1])
                 if i == 0:
                     if float(values[0]) <= time:
-                        event_no_t_obs = num
+                        event_no_t_obs = num - 1
                         follower_t = follower_t + int(values[1])
                 if float(values[0]) <= t_f_list[i]:
-                    event_t_pred = num
+                    event_t_pred = num - 1
 
             if event_no_t_obs == 0:  # ignoring the file if there is no event happened during the observation time
                 warnings.warn("No event have occurred till the observation time. The file WILL BE IGNORED")

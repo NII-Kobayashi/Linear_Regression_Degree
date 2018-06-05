@@ -28,7 +28,6 @@ def main(obs_time, file_list):
             dt = 24
         if q == 5:
             dt = 162
-        print(dt)
         max_value = int((168 - obs_time) / dt)  # number of bins
         window_size = dt  # dt in second
         event_list = [no_of_events_followers_in_window(file_list[i], obs_time, window_size, max_value, 3600) for i in
@@ -41,3 +40,4 @@ def main(obs_time, file_list):
 file_path = "Data/RT*.txt"
 file_list_all = sorted(gb.glob(file_path), key=numerical_sort)
 main(6, file_list_all)
+
