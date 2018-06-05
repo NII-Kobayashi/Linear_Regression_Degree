@@ -108,4 +108,3 @@ def cross_validation_error(k_fold, event_list_data, max_value_itr):
     med_cor = statistics.median(correlation_list)
     mea_cor = statistics.mean(correlation_list)
     return "media:", med, "mean:", mea, "media_corr:", med_cor, "mean_corr:", mea_cor
-

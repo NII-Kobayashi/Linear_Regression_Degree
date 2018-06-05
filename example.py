@@ -31,15 +31,14 @@ total_follower_t_log = np.asarray([(parameters_value[i][1]) for i in range(len(p
 no_events_log = np.asarray([(parameters_value[i][2]) for i in range(len(parameters_value))])
 event_pred_log = np.asarray([(parameters_value[i][3]) for i in range(len(parameters_value))])
 
-parameters_estimated = parameter_estimation_lr_n(follower_orig_log, total_follower_t_log,
-                                                no_events_log, event_pred_log)
+parameters_estimated = parameter_estimation_lr_n(follower_orig_log, total_follower_t_log, no_events_log, event_pred_log)
+
 
 # prediction
 file_name_test = "Data/test/RT*.txt"  # path to the files used for prediction
 file_list_test = sorted(gb.glob(file_name_test), key=numerical_sort)  # for all the training file
-parameters_value_pred = [no_of_events_followers(file_list_test[i], T_OBS, T_PRED, 3600) for i in range(len(file_list_test))]
-nfile_prediction_result = [prediction_lr_n(parameters_estimated, no_events_log[i], total_follower_t_log[i], follower_orig_log[i])
-                           for i in range(len(no_events_log))]
+parameters_value_pred = [no_of_events_followers(file_list_test[i], T_OBS, T_PRED, 3600)
+                         for i in range(len(file_list_test))]
 
-
-
+nfile_prediction_result = [prediction_lr_n(parameters_estimated, no_events_log[i], total_follower_t_log[i],
+                                           follower_orig_log[i]) for i in range(len(no_events_log))]

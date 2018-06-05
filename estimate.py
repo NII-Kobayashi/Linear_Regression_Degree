@@ -39,16 +39,15 @@ def parameter_estimation_lr_n(follower_orig, total_follower_t, no_events, event_
     y4 = sum([(follower_orig[i] * event_pred[i]) for i in range(len(event_pred))])
 
     if isinstance(y1, np.float64):
-        print(y1)
-        y = (np.matrix([y1, y2, y3, y4])).transpose()
-        theta = linalg.solve(a, y)
+        theta = linalg.solve(a, (np.matrix([y1, y2, y3, y4])).transpose())
         sigma_val = [(event_pred[i] - theta[0] - (theta[1] * no_events[i]) - (theta[2] * total_follower_t[i]) -
                       (theta[3] * follower_orig[i])) ** 2 for i in range(len(event_pred))]
         sigma_sq = sum(sigma_val) / len(event_pred)
+
         return theta, sigma_sq
 
     else:
-        theta = [linalg.solve(a, (np.matrix([y1[i], y2[i], y3[i], y4[i]])).transpose()) for i in range(len(y1))]
+        theta = [linalg.solve(a, (np.matrix([y1, y2, y3, y4])).transpose())]
         sigma_sq_list = []
         for j in range(len(theta)):
             val = [(event_pred[i][j] - theta[j][0] - (theta[j][1] * no_events[i]) -
@@ -58,3 +57,4 @@ def parameter_estimation_lr_n(follower_orig, total_follower_t, no_events, event_
             sigma_sq_list.append(sigma_sq)
 
         return theta, sigma_sq_list
+

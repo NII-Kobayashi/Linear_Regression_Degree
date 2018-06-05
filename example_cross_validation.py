@@ -40,4 +40,3 @@ def main(obs_time, file_list):
 file_path = "Data/RT*.txt"
 file_list_all = sorted(gb.glob(file_path), key=numerical_sort)
 main(6, file_list_all)
-
