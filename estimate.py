@@ -33,22 +33,26 @@ def parameter_estimation_lr_n(follower_orig, total_follower_t, no_events, event_
          sum(follower_orig * follower_orig)]
     ])
 
-    y1 = sum(event_pred)
-    y2 = sum([(no_events[i] * event_pred[i]) for i in range(len(event_pred))])
-    y3 = sum([(total_follower_t[i] * event_pred[i]) for i in range(len(event_pred))])
-    y4 = sum([(follower_orig[i] * event_pred[i]) for i in range(len(event_pred))])
+    # y1 = sum(event_pred)
+    # y2 = sum([(no_events[i] * event_pred[i]) for i in range(len(event_pred))])
+    # y3 = sum([(total_follower_t[i] * event_pred[i]) for i in range(len(event_pred))])
+    # y4 = sum([(follower_orig[i] * event_pred[i]) for i in range(len(event_pred))])
+
+    y1 = np.sum(event_pred, axis=0)
+    y2 = np.sum((event_pred.T * no_events).T, axis=0)
+    y3 = np.sum((event_pred.T * total_follower_t).T, axis=0)
+    y4 = np.sum((event_pred.T * follower_orig.T).T, axis=0)
 
     if isinstance(y1, np.float64):
-        theta = linalg.solve(a, (np.matrix([y1, y2, y3, y4])).transpose())
+        theta = linalg.solve(a, [y1, y2, y3, y4])
         sigma_val = [(event_pred[i] - theta[0] - (theta[1] * no_events[i]) - (theta[2] * total_follower_t[i]) -
                       (theta[3] * follower_orig[i])) ** 2 for i in range(len(event_pred))]
         sigma_sq = sum(sigma_val) / len(event_pred)
 
-        return theta, sigma_sq
+        return [theta], [sigma_sq]
 
     else:
-        theta = [linalg.solve(a, (np.matrix([y1[i], y2[i], y3[i], y4[i]])).transpose())
-                 for i in range(len(sum(event_pred)))]
+        theta = [linalg.solve(a, [y1[i], y2[i], y3[i], y4[i]]) for i in range(len(sum(event_pred)))]
         sigma_sq_list = []
         for j in range(len(theta)):
             val = [(event_pred[i][j] - theta[j][0] - (theta[j][1] * no_events[i]) -
