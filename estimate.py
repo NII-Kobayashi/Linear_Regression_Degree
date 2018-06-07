@@ -18,7 +18,7 @@ def parameter_estimation_lr_n(follower_orig, total_follower_t, no_events, event_
     calculate the parameters value for the linear regression model
     :param follower_orig: array containing the original number of follower of the original tweet
     :param total_follower_t: array containing the total number of follower until the observation time
-    :param no_events: array containing the total number of re-tweet intil the observation time
+    :param no_events: array containing the total number of re-tweet initial the observation time
     :param event_pred: array containing the actual value of total number of re-tweet at the prediction time
     :return: the linear regression model parameters (theta and variance)
     """
@@ -38,6 +38,7 @@ def parameter_estimation_lr_n(follower_orig, total_follower_t, no_events, event_
     # y3 = sum([(total_follower_t[i] * event_pred[i]) for i in range(len(event_pred))])
     # y4 = sum([(follower_orig[i] * event_pred[i]) for i in range(len(event_pred))])
 
+    # same as above with numpy to avoid loops
     y1 = np.sum(event_pred, axis=0)
     y2 = np.sum((event_pred.T * no_events).T, axis=0)
     y3 = np.sum((event_pred.T * total_follower_t).T, axis=0)

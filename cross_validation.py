@@ -3,7 +3,7 @@
 # For license information, see LICENSE.txt
 
 """
-Implements functions to check the accuracy of the model by using cross- validation
+Implements functions to check the accuracy of the model by using K-Fold cross- validation
 
 References
 ----------
