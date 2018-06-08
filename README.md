@@ -1,4 +1,4 @@
-# Prediction of Twitter retweet dynamic using Linear Regression Model
+# Prediction of Twitter re-tweet dynamic using Linear Regression Model
 
 This is the code illustrating the *Zhao et al., in KDD' 15 2015 pp. 1513-1522*.
 It aims at providing a framework for experimenting with multiple Linear Regression in
@@ -25,6 +25,12 @@ The **Data** folder contains some twitter data that can be used for training and
 The **Linear_Regression_degree** folder contains all the core python code and example files.
 
 ## Running some examples
+There are two example code in the directory, i.e. example.py, example_cross_validation.py
+
+ - *example.py* : This code estimates all the model parameters  (alpha, variance, beta_r, beta_n, beta_0) from
+    observation data and predicts future re-tweet activity.
+ - *example_cross_validation.py* : This code evaluates the error of the model by using 5 cross validation
+    and prints the average mean, media error and correlation
 
 You can just run :
 
@@ -36,16 +42,11 @@ readable and understandable.
 
 ## Description of each module
 
- - *example.py* : shows the working example with the data set for the multiple regression model and prints the
-    prediction result
- - *example_cross_validation.py* : shows the working example with 5 cross validation and prints the average mean,
-    media error and correlation
  - *estimate.py* : implements the basic mathematical expression
     from the linear regression equations used in the paper for estimating the parameters.
  - *prediction.py* : implements the basic mathematical expression
     from the linear regression equations used in the paper for predicting the parameters.
- - *cross_validation.py* : function for 5- fold cross validation on all the data set
-    from multiple linear regression equations used in the paper for predicting the parameters.
+ - *cross_validation.py* : function for 5- fold cross validation to check the accuracy of the model.
  - *functions.py* : implements the function for extracting the number
     of events from the data file along with the number of followers and a function to sort the file name numerically
 
@@ -60,8 +61,8 @@ For this work the data (used for training) was slightly aggregated to the
 following format:
 - one file peer tweet
 - space separated
-- first row: \<number of total retweets\> \<start time of tweet in days\>
-- every other row: \<relative time of tweet/retweet in seconds\> \<number of followers\>
+- first row: \<number of total re-tweets\> \<start time of tweet in days\>
+- every other row: \<relative time of tweet/re-tweet in seconds\> \<number of followers\>
 - only
 
 ## License

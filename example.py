@@ -1,16 +1,20 @@
-# Author: Niharika Singhal
-#
-# For license information, see LICENSE.txt
-
 """
-
-Full example on how to use linear regression model with degree for predicting re-tweet activity
+This code trains the multiple linear regression model parameters (alpha, variance, beta_r, beta_n, beta_0)
+based on a re-tweet data-set (data/training/RT*.txt), assuming the parameters are same in the data-set.
 Please replace file paths according to your local directory structure.
 
-References
-----------
-.. *Zhao et al., in KDD' 15 2015 pp. 1513-1522*.
+Inputs are
+1) Data file that includes the re-tweet times and the number of followers
+Here, this code reads 'Data/training/RT*.txt' (= filename) and 'Data/test/RT*.txt' (= file_name_test) for test data set.
+2) Observation time (= T_OBS).
+3) Final time of prediction (= T_PRED).
+
+Outputs is
+1) the prediction time for the test data set .
+
+This code is developed by Niharika Singhal under the supervision of Ryota Kobayashi.
 """
+
 
 from function import *
 from estimate import *
@@ -21,8 +25,8 @@ import numpy as np
 # estimation
 T_OBS = 6
 T_PRED = 10
-file_path = "Data/training/RT*.txt"
-file_list = sorted(gb.glob(file_path), key=numerical_sort)  # for files having tweet more than 20000 (RT186. RT1439)
+filename = "Data/training/RT*.txt"
+file_list = sorted(gb.glob(filename), key=numerical_sort)  # for files having tweet more than 20000 (RT186. RT1439)
 
 parameters_value = [no_of_events_followers(file_list[i], T_OBS, T_PRED, 3600) for i in range(len(file_list))]
 

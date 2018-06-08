@@ -3,7 +3,8 @@
 # For license information, see LICENSE.txt
 
 """
-Implements functions for estimating the parameters used in linear regression model
+Implements functions for estimating the parameters (alpha, variance, beta_r, beta_n, beta_0) used in multiple linear
+regression model
 
 References
 ----------
@@ -63,4 +64,3 @@ def parameter_estimation_lr_n(follower_orig, total_follower_t, no_events, event_
             sigma_sq_list.append(sigma_sq)
 
         return theta, sigma_sq_list
-

@@ -1,14 +1,18 @@
-# Author: Niharika Singhal
-#
-# For license information, see LICENSE.txt
-
 """
-Full example to checks the accuracy of the model.
+This code evaluates the multiple linear regression model parameters, based on a re-tweet data-set
+(Data/training/RT*.txt), assuming the parameters are same in the data-set.
 Please replace file paths according to your local directory structure.
 
-References
-----------
-.. *Zhao et al., in KDD' 15 2015 pp. 1513-1522*.
+Inputs are
+1) Data file that includes the re-tweet times and the number of followers
+Here, this code reads 'Data/RT*.txt' (= filename)
+2) Observation time (= T_OBS).
+3) Final time of prediction (= T_PRED).
+
+Outputs is
+1) Errors evaluated via Cross-Validation.
+
+This code is developed by Niharika Singhal under the supervision of Ryota Kobayashi.
 """
 
 from cross_validation import *
@@ -37,6 +41,6 @@ def main(obs_time, file_list):
         print("Time:", dt, result_lr)
 
 
-file_path = "Data/RT*.txt"
-file_list_all = sorted(gb.glob(file_path), key=numerical_sort)
+filename = "Data/RT*.txt"
+file_list_all = sorted(gb.glob(filename), key=numerical_sort)
 main(6, file_list_all)
