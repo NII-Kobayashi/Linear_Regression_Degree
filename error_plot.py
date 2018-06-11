@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def plot_different_time(t_obs, t_pred, file_list_train, file_list_test_):
+def mean_error_sd(t_obs, t_pred, file_list_train, file_list_test_):
     parameters_value = [no_of_events_followers(file_list_train[i], t_obs, t_pred, 3600) for i in range(len(file_list_train))]
     parameters_value = list(filter(None.__ne__, parameters_value))  # checking for none value
     follower_orig_log = np.asarray([(parameters_value[i][0]) for i in range(len(parameters_value))])
@@ -30,7 +30,8 @@ def plot_different_time(t_obs, t_pred, file_list_train, file_list_test_):
                         follower_orig_log_test[i]) for i in range(len(no_events_log_test))]
     error = [(abs(event_pred_true[i] - nfile_prediction_result[i])) for i in range(len(event_pred_true))]
     mean_error = np.mean(error)
-    return mean_error
+    sd = np.std(error)
+    return mean_error, sd
 
 
 filename = "Data/training/RT*.txt"
@@ -39,20 +40,20 @@ file_name_test = "Data/test/RT*.txt"  # path to the files used for prediction
 file_list_test = sorted(gb.glob(file_name_test), key=numerical_sort)  # for all the training file
 
 
-
-# different observation time
+# different observation time at fixed prediction time
 T_OBS = 6
 T_PRE = 78
 runtime = 13
-res = [plot_different_time((T_OBS*j), T_PRE, file_list, file_list_test) for j in range(1, runtime)]
-
+res = [mean_error_sd((T_OBS*j), T_PRE, file_list, file_list_test) for j in range(1, runtime)]
+mean_lrn = [res[i][0] for i in range(len(res))]
+std_lrn = [res[i][1] for i in range(len(res))]
 # res_lr value obtained after running linear regression model
-res_lr = [1792.0844759662882, 1211.2897546952167, 894.82557356704251, 642.7528622049914, 461.42831410836766,
-          381.45679911941625, 295.03523547681004, 186.20665950234905, 130.54609867826824, 105.31366309764059,
-          78.501781006656799, 36.473511541637663]
+mean_lr = [1792.0844759662882, 1211.2897546952167, 894.82557356704251, 642.7528622049914, 461.42831410836766,
+           381.45679911941625, 295.03523547681004, 186.20665950234905, 130.54609867826824, 105.31366309764059,
+           78.501781006656799, 36.473511541637663]
 
 tx = np.arange(6, 6*runtime, 6)
-plt.plot(tx,  np.log(res), tx,  np.log(res_lr), 'r', linewidth=1.3, alpha=0.8)
+plt.plot(tx,  np.log(mean_lrn), tx,  np.log(mean_lr), 'r', linewidth=1.3, alpha=0.8)
 plt.xlabel('T(hour) observation time')
 plt.ylabel('Log Mean absolute error')
 plt.xticks(np.arange(6, 6*runtime, 6))
@@ -63,6 +64,14 @@ plt.grid(True)
 plt.show()
 
 
-# variance and mean error LR-N
+# variance and mean error plot for LR-N
+plt.errorbar(np.arange(6, 6*runtime, 6), np.log(mean_lrn), np.log(std_lrn), linestyle='None', marker='^', capsize=3)
+plt.xlabel('T(hour) observation time')
+plt.ylabel('Log Mean error')
+plt.ylim(0)
+plt.xticks(np.arange(6, 6*runtime, 6))
+plt.title("Prediction value at T = 78 hours for different observation time")
+plt.grid(True)
+plt.show()
 
 
