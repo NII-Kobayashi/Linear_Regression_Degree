@@ -66,29 +66,28 @@ runtime = 13
 res = [mean_error_sd((T_OBS*j), T_PRE, file_list, file_list_test) for j in range(1, runtime)]
 mean_lrn = [res[i][0] for i in range(len(res))]
 std_lrn = [res[i][1] for i in range(len(res))]
+
 # mean_lr value obtained after running linear regression model
 mean_lr = [1792.0844759662882, 1211.2897546952167, 894.82557356704251, 642.7528622049914, 461.42831410836766,
            381.45679911941625, 295.03523547681004, 186.20665950234905, 130.54609867826824, 105.31366309764059,
            78.501781006656799, 36.473511541637663]
 
-tx = np.arange(6, 6*runtime, 6)
+tx = np.arange(T_OBS, T_OBS*runtime,T_OBS)
 plt.plot(tx,  np.log(mean_lrn), tx,  np.log(mean_lr), 'r', linewidth=1.3, alpha=0.8)
 plt.xlabel('T(hour) observation time')
 plt.ylabel('Log Mean absolute error')
-plt.xticks(np.arange(6, 6*runtime, 6))
+plt.xticks(np.arange(T_OBS, T_OBS*runtime, T_OBS))
 plt.ylim(0)
 plt.title("Prediction value at T = 78 hours for different observation time")
 plt.legend(['LR-N', 'LR'], loc='best', fancybox=True, shadow=True)
 plt.grid(True)
-plt.show()
-
 
 # variance and mean error plot for LR-N
-plt.errorbar(np.arange(6, 6*runtime, 6), np.log(mean_lrn), np.log(std_lrn), linestyle='None', marker='^', capsize=3)
+plt.errorbar(np.arange(T_OBS, T_OBS*runtime, T_OBS), np.log(mean_lrn), np.log(std_lrn), linestyle='None', marker='^', capsize=3)
 plt.xlabel('T(hour) observation time')
 plt.ylabel('Log Mean error')
 plt.ylim(0)
-plt.xticks(np.arange(6, 6*runtime, 6))
+plt.xticks(np.arange(T_OBS, T_OBS*runtime, T_OBS))
 plt.title("Prediction value at T = 78 hours for different observation time")
 plt.grid(True)
 plt.show()

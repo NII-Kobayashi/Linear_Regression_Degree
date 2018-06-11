@@ -21,7 +21,6 @@ from estimate import *
 from prediction import *
 import glob as gb
 import numpy as np
-import matplotlib.pyplot as plt
 
 
 # estimation
@@ -54,12 +53,3 @@ event_pred_log_true = np.asarray([(parameters_value_pred[i][3]) for i in range(l
 nfile_prediction_result = [prediction_lr_n(parameters_estimated, no_events_log_test[i], total_follower_t_log_test[i],
                                            follower_orig_log_test[i]) for i in range(len(no_events_log_test))]
 print("The prediction result for n files are:", nfile_prediction_result)
-
-
-# plot for different test file at same observation and prediction time
-plt.plot(np.log(nfile_prediction_result))
-plt.xlabel('Different Test Files')
-plt.ylabel('Prediction values in log')
-plt.title('LR-N on different file at same observation and prediction time ')
-
-
