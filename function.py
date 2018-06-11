@@ -59,7 +59,8 @@ def no_of_events_followers(event_file, t_observation, t_prediction, time_factor=
         warnings.warn("No event have occurred till the observation time. The file WILL BE IGNORED")
         print("Ignored File Name:", event_file)
     else:
-        return math.log(original_follower), math.log(follower_t), math.log(event_no_t_obs), math.log(event_t_pred)
+        return math.log(original_follower), math.log(follower_t), math.log(event_no_t_obs), math.log(event_t_pred), \
+               event_t_pred
 
 
 def no_of_events_followers_in_window(event_file, t_observation, win_size, max_itr, time_factor=1):

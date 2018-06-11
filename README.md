@@ -22,7 +22,7 @@ sub-folders and this README file.
 
 The **Data** folder contains some twitter data that can be used for training and testing.
 
-The **Linear_Regression_degree** folder contains all the core python code and example files.
+The **Linear_Regression_degree** folder contains all the core python code, example files and Data folder.
 
 ## Running some examples
 There are two example code in the directory, i.e. example.py, example_cross_validation.py

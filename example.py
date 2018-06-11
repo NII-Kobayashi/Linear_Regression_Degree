@@ -21,6 +21,8 @@ from estimate import *
 from prediction import *
 import glob as gb
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 # estimation
 T_OBS = 6
@@ -39,7 +41,7 @@ parameters_estimated = parameter_estimation_lr_n(follower_orig_log, total_follow
 
 
 # prediction
-file_name_test = "Data/test/RT*.txt"  # path to the files used for prediction
+file_name_test = "Data/test/RT25*.txt"  # path to the files used for prediction
 file_list_test = sorted(gb.glob(file_name_test), key=numerical_sort)  # for all the training file
 parameters_value_pred = [no_of_events_followers(file_list_test[i], T_OBS, T_PRED, 3600)
                          for i in range(len(file_list_test))]
@@ -51,7 +53,13 @@ event_pred_log_true = np.asarray([(parameters_value_pred[i][3]) for i in range(l
 
 nfile_prediction_result = [prediction_lr_n(parameters_estimated, no_events_log_test[i], total_follower_t_log_test[i],
                                            follower_orig_log_test[i]) for i in range(len(no_events_log_test))]
-print(nfile_prediction_result)
+print("The prediction result for n files are:", nfile_prediction_result)
 
+
+# plot for different test file at same observation and prediction time
+plt.plot(np.log(nfile_prediction_result))
+plt.xlabel('Different Test Files')
+plt.ylabel('Prediction values in log')
+plt.title('LR-N on different file at same observation and prediction time ')
 
 
