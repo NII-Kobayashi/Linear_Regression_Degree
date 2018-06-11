@@ -1,3 +1,22 @@
+"""
+This code plot the mean error and the variance for the simple linear regression model
+based on a re-tweet data-set (data/training/RT*.txt), assuming the parameters are same in the data-set.
+Please replace file paths according to your local directory structure.
+It also compare the result obtained from LR and LR-N. The result from the LR is saved in the variable =(mean_lr)
+
+Inputs are
+1) Data file that includes the re-tweet times and the number of followers
+Here, this code reads 'Data/training/RT*.txt' (= filename) and 'Data/test/RT*.txt' (= file_name_test) for test data set.
+2) Observation time (= T_OBS).
+3) Final time of prediction (= T_PRED).
+4) runtime for the T_OBS interval of 6 hours
+
+Outputs is
+1) the plot shows the comparison between LR and LR-N.
+2) the plot showing mean error and the variance.
+
+This code is developed by Niharika Singhal under the supervision of Ryota Kobayashi.
+"""
 from function import *
 from estimate import *
 from prediction import *
@@ -40,14 +59,14 @@ file_name_test = "Data/test/RT*.txt"  # path to the files used for prediction
 file_list_test = sorted(gb.glob(file_name_test), key=numerical_sort)  # for all the training file
 
 
-# different observation time at fixed prediction time
+# plot at different observation time and fixed prediction time
 T_OBS = 6
 T_PRE = 78
 runtime = 13
 res = [mean_error_sd((T_OBS*j), T_PRE, file_list, file_list_test) for j in range(1, runtime)]
 mean_lrn = [res[i][0] for i in range(len(res))]
 std_lrn = [res[i][1] for i in range(len(res))]
-# res_lr value obtained after running linear regression model
+# mean_lr value obtained after running linear regression model
 mean_lr = [1792.0844759662882, 1211.2897546952167, 894.82557356704251, 642.7528622049914, 461.42831410836766,
            381.45679911941625, 295.03523547681004, 186.20665950234905, 130.54609867826824, 105.31366309764059,
            78.501781006656799, 36.473511541637663]
