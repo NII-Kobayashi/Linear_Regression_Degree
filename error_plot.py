@@ -81,6 +81,7 @@ plt.ylim(0)
 plt.title("Prediction value at T = 78 hours for different observation time")
 plt.legend(['LR-N', 'LR'], loc='best', fancybox=True, shadow=True)
 plt.grid(True)
+plt.show()
 
 # variance and mean error plot for LR-N
 plt.errorbar(np.arange(T_OBS, T_OBS*runtime, T_OBS), np.log(mean_lrn), np.log(std_lrn), linestyle='None', marker='^', capsize=3)
