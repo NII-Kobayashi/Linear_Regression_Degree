@@ -10,10 +10,11 @@ Here, this code reads 'Data/training/RT*.txt' (= filename) and 'Data/test/RT*.tx
 2) Observation time (= T_OBS).
 3) Final time of prediction (= T_PRED).
 4) runtime for the T_OBS interval of 6 hours
+5) Mean error value obtained from LR model
 
 Outputs is
-1) the plot shows the comparison between LR and LR-N.
-2) the plot showing mean error and the variance.
+1) The plot showing mean error and the variance.
+2) The plot shows the comparison between LR and LR-N.
 
 This code is developed by Niharika Singhal under the supervision of Ryota Kobayashi.
 """
@@ -50,7 +51,10 @@ def mean_error_sd(t_obs, t_pred, file_list_train, file_list_test_):
     error = [(abs(event_pred_true[i] - nfile_prediction_result[i])) for i in range(len(event_pred_true))]
     mean_error = np.mean(error)
     sd = np.std(error)
-    return mean_error, sd
+    quan1 = np.percentile(error, 25)
+    quan3 = np.percentile(error, 75)
+    return mean_error, sd, quan1, quan3
+
 
 
 filename = "Data/training/RT*.txt"
@@ -66,31 +70,34 @@ runtime = 13
 res = [mean_error_sd((T_OBS*j), T_PRE, file_list, file_list_test) for j in range(1, runtime)]
 mean_lrn = [res[i][0] for i in range(len(res))]
 std_lrn = [res[i][1] for i in range(len(res))]
+q1 = [res[i][2] for i in range(len(res))]
+q3 = [res[i][3] for i in range(len(res))]
+
+
+# variance and mean error plot for LR-N
+plt.errorbar(np.arange(T_OBS, T_OBS*runtime, T_OBS), mean_lrn, std_lrn, linestyle='None', marker='^', capsize=3)
+plt.plot(np.arange(T_OBS, T_OBS*runtime, T_OBS), q1, 'k_')
+plt.plot(np.arange(T_OBS, T_OBS*runtime, T_OBS), q3, 'k_')
+plt.xlabel('T(hour) observation time')
+plt.ylabel('Mean error')
+plt.xticks(np.arange(T_OBS, T_OBS*runtime, T_OBS))
+plt.title("Prediction value at T = 78 hours for different observation time")
+plt.show()
+
 
 # mean_lr value obtained after running linear regression model
 mean_lr = [1792.0844759662882, 1211.2897546952167, 894.82557356704251, 642.7528622049914, 461.42831410836766,
            381.45679911941625, 295.03523547681004, 186.20665950234905, 130.54609867826824, 105.31366309764059,
            78.501781006656799, 36.473511541637663]
 
+
 tx = np.arange(T_OBS, T_OBS*runtime,T_OBS)
-plt.plot(tx,  np.log(mean_lrn), tx,  np.log(mean_lr), 'r', linewidth=1.3, alpha=0.8)
+plt.plot(tx,  mean_lrn, tx,  mean_lr, 'r', linewidth=1.3, alpha=0.8)
 plt.xlabel('T(hour) observation time')
-plt.ylabel('Log Mean absolute error')
+plt.ylabel('Mean absolute error')
 plt.xticks(np.arange(T_OBS, T_OBS*runtime, T_OBS))
 plt.ylim(0)
 plt.title("Prediction value at T = 78 hours for different observation time")
 plt.legend(['LR-N', 'LR'], loc='best', fancybox=True, shadow=True)
 plt.grid(True)
 plt.show()
-
-# variance and mean error plot for LR-N
-plt.errorbar(np.arange(T_OBS, T_OBS*runtime, T_OBS), np.log(mean_lrn), np.log(std_lrn), linestyle='None', marker='^', capsize=3)
-plt.xlabel('T(hour) observation time')
-plt.ylabel('Log Mean error')
-plt.ylim(0)
-plt.xticks(np.arange(T_OBS, T_OBS*runtime, T_OBS))
-plt.title("Prediction value at T = 78 hours for different observation time")
-plt.grid(True)
-plt.show()
-
-

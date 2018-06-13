@@ -10,7 +10,10 @@ Here, this code reads 'Data/training/RT*.txt' (= filename) and 'Data/test/RT*.tx
 3) Final time of prediction (= T_PRED).
 
 Outputs is
-1) the prediction time for the test data set .
+1) The estimated parameters (alpha and variance)
+2) The prediction result obtained form the model
+3) The true prediction value
+4) Error estimated
 
 This code is developed by Niharika Singhal under the supervision of Ryota Kobayashi.
 """
@@ -39,17 +42,29 @@ event_pred_log = np.asarray([(parameters_value[i][3]) for i in range(len(paramet
 parameters_estimated = parameter_estimation_lr_n(follower_orig_log, total_follower_t_log, no_events_log, event_pred_log)
 
 
-# prediction
-file_name_test = "Data/test/RT25*.txt"  # path to the files used for prediction
+# prediction result for one file
+file_name_test = "Data/test/RT2560.txt"  # path to the files used for prediction
 file_list_test = sorted(gb.glob(file_name_test), key=numerical_sort)  # for all the training file
-parameters_value_pred = [no_of_events_followers(file_list_test[i], T_OBS, T_PRED, 3600)
-                         for i in range(len(file_list_test))]
-parameters_value_pred = list(filter(None.__ne__, parameters_value_pred))  # checking for none value
-follower_orig_log_test = np.asarray([(parameters_value_pred[i][0]) for i in range(len(parameters_value_pred))])
-total_follower_t_log_test = np.asarray([(parameters_value_pred[i][1]) for i in range(len(parameters_value_pred))])
-no_events_log_test = np.asarray([(parameters_value_pred[i][2]) for i in range(len(parameters_value_pred))])
-event_pred_log_true = np.asarray([(parameters_value_pred[i][3]) for i in range(len(parameters_value_pred))])
+parameters_value_pred = no_of_events_followers(file_name_test, T_OBS, T_PRED, 3600)
 
-nfile_prediction_result = [prediction_lr_n(parameters_estimated, no_events_log_test[i], total_follower_t_log_test[i],
-                                           follower_orig_log_test[i]) for i in range(len(no_events_log_test))]
-print("The prediction result for n files are:", nfile_prediction_result)
+follower_orig_log_test = np.asarray(parameters_value_pred[0])
+total_follower_t_log_test = np.asarray(parameters_value_pred[1])
+no_events_log_test = np.asarray(parameters_value_pred[2])
+event_pred_log_true = np.asarray(parameters_value_pred[3])
+event_pred_true = np.asarray(parameters_value_pred[4])
+t_prediction_result = prediction_lr_n(parameters_estimated, no_events_log_test, total_follower_t_log_test,
+                                           follower_orig_log_test)
+
+
+error = (abs(event_pred_true - t_prediction_result))
+print("The parameters estimated are:")
+beta, sigma = parameters_estimated
+print("alpha :", beta[0][0])
+print("beta_r :", beta[0][1])
+print("beta_n :", beta[0][2])
+print("beta_0 :", beta[0][3])
+print("Variance:", sigma[0])
+print("The prediction result for the observation time at ", T_OBS, "hours and the prediction time at", T_PRED, "hour is:")
+print(t_prediction_result)
+print("The true value at the prediction time is", event_pred_true)
+print("The error estimated is:", error)
