@@ -9,7 +9,8 @@ Here, this code reads 'Data/RT*.txt' (= filename) and all the data files are sav
 2) Observation time (= obs_time_init).
 3) window size to consider multiple prediction time (= window_size).
 4) to run for various observation time =(iteration)
-5) mean error value obtained form LR model
+5)
+6) mean error value obtained form LR model
 
 Output are
 1) Errors evaluated via Cross-Validation.
@@ -32,22 +33,21 @@ window_size = 4  # the window size for multiple prediction value
 iteration = 5  # number of time you want to run the loop
 mean_list = []  # save the mean value at different observation time
 time_list = []  # save the different observation time considered
-
+T_max = 168
 for k in range(0, iteration):
     if k == 4:
         obs_time = 72
     else:
         obs_time = obs_time_init * (2 ** k)
-    max_value = int((168 - obs_time) / window_size)
+    max_value = int((T_max - obs_time) / window_size)
     event_list = [no_of_events_followers_in_window(file_list_all[i], obs_time, window_size, max_value, 3600) for i in
                   range(len(file_list_all))]
     event_list = list(filter(None.__ne__, event_list))  # checking for none value
     result_lr = cross_validation_error(5, event_list, max_value)
     mean_list.append(result_lr[1])
     time_list.append(obs_time)
-    print("Time:", obs_time, "media:", result_lr[0], "mean:", result_lr[1], "media_corr:", result_lr[2],
-          "mean_corr:", result_lr[3])
-
+    print("Time:", obs_time, ", median:", int(result_lr[0]), ", mean:", int(result_lr[1]),
+          ", median_corr = {0:.3f}".format(round(result_lr[2], 3)), ", mean_corr = {0:.3f}".format(round(result_lr[3], 3)))
 
 # plot for mean error obtained at different observation time
 plt.plot(time_list,  mean_list)
