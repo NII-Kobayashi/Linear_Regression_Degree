@@ -7,16 +7,16 @@ Implements functions for predicting the future re-tweets
 
 References
 ----------
-.. *Zhao et al., in KDD' 15 2015 pp. 1513-1522*.
+.. *Kobayashi and Lambiotte, ICWSM, pp. 191-200, 2016; Zhao et al., KDD, pp. 1513-1522, 2015*.
 """
 import math
 
 
 def prediction_lr_n(parameter_estimated, no_events, total_follower_t, follower_orig):
     """
-    predict the total number of possible re-tweet at the time t
+    predict the total number of re-tweet
     :param parameter_estimated: parameter for linear regression model
-    :param no_events: array containing the total number of re-tweet initial the observation time
+    :param no_events: array, containing the total number of re-tweet until the observation time
     :param total_follower_t: array containing the total number of follower until the observation time
     :param follower_orig: array containing the original number of follower of the original tweet
     :return: the biased estimator

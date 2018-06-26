@@ -7,7 +7,7 @@ Implements functions to check the accuracy of the model by using K-Fold cross- v
 
 References
 ----------
-.. *Zhao et al., in KDD' 15 2015 pp. 1513-1522*.
+.. *Kobayashi and Lambiotte, ICWSM, pp. 191-200, 2016; Zhao et al., KDD, pp. 1513-1522, 2015*.
 """
 
 from sklearn.model_selection import KFold
@@ -18,13 +18,13 @@ from prediction import *
 
 def cross_validation_error(k_fold, event_list_data, max_value_itr):
     """
-       estimate the mean, media error and mean, median correlation
-       :param k_fold: the number of times we want to use the cross-validation
-       :param event_list_data: list containing the total no of followers, original followers, no of event until the
-       observation time and the multiple prediction value according to the window size
-       :param max_value_itr: the number of iteration for the prediction value
-       :return: the average mean, media error and correlation
-       """
+    evaluate the mean and median of the errors, and their correlations
+    :param k_fold: k_fold cross-validation
+    :param event_list_data: list, containing the total no of followers, original followers, no of event at an
+    observation time and at the prediction times
+    :param max_value_itr: the number of windows for prediction
+    :return: the mean and median of the errors and their correlations
+    """
     est_list_all = []
     actual_list_all = []
     error_list_all = []

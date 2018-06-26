@@ -1,8 +1,8 @@
 # Prediction of Twitter re-tweet dynamic using Linear Regression Model
 
-This is the code illustrating the *Zhao et al., in KDD' 15 2015 pp. 1513-1522*.
-It aims at providing a framework for experimenting with multiple Linear Regression in
-the context of twitter re-tweet prediction.
+This code predicts the number of retweets in a future period used in *Kobayashi and Lambiotte, ICWSM, pp. 191-200, 2016*.
+The algorithm is a modification of Lineaer Regression method proposed in *Zhao et al., KDD, pp. 1513-1522, 2015*.
+
 
 ## Requirements
 
@@ -27,10 +27,10 @@ The **Linear_Regression_degree** folder contains all the core python code, examp
 ## Running some examples
 There are two example code in the directory, i.e. example.py, example_cross_validation.py
 
- - *example.py* : This code estimates all the model parameters  (alpha, variance, beta_r, beta_n, beta_0) from
-    observation data and predicts future re-tweet activity.
- - *example_cross_validation.py* : This code evaluates the error of the model by using 5 cross validation
-    and prints the average mean, media error and correlation
+ - *example.py* : This code estimates the model parameters (alpha, variance, beta_r, beta_n, beta_0) from observed data
+    and predicts the number of retweets from the observation time to the final time.
+ - *example_cross_validation.py* : This code evaluates the accuracy based on k-fold cross-validation.
+
 
 You can just run :
 
@@ -42,13 +42,10 @@ readable and understandable.
 
 ## Description of each module
 
- - *estimate.py* : implements the basic mathematical expression
-    from the linear regression equations used in the paper for estimating the parameters.
- - *prediction.py* : implements the basic mathematical expression
-    from the linear regression equations used in the paper for predicting the parameters.
- - *cross_validation.py* : function for 5- fold cross validation to check the accuracy of the model.
- - *functions.py* : implements the function for extracting the number
-    of events from the data file along with the number of followers and a function to sort the file name numerically
+ - *estimate.py* : functions for estimating the model parameters.
+ - *prediction.py* : function for predicting the number of retweets in a future period.
+ - *cross_validation.py* : function for evaluating the accuracy based on cross-validation.
+ - *functions.py* :  function for calculating the number of retweets and for sorting the file names numerically
 
 
 ## Data source
@@ -68,5 +65,5 @@ following format:
 ## License
 
 This project is licensed under the terms of the MIT license.
-
-Please contact me if you want to use the code for commercial purposes.
+Please cite the paper (Kobayashi and Lambiotte, ICWSM, pp.191-200, 2016) in you used the code.
+Please contact Ryota Kobayashi if you want to use the code for commercial purposes.

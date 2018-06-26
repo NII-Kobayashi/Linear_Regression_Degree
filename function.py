@@ -11,7 +11,7 @@ window concept
 
 References
 ----------
-.. *Zhao et al., in KDD' 15 2015 pp. 1513-1522*.
+.. *Kobayashi and Lambiotte, ICWSM, pp. 191-200, 2016; Zhao et al., KDD, pp. 1513-1522, 2015*.
 """
 
 import re
@@ -32,12 +32,14 @@ def numerical_sort(value):
 
 def no_of_events_followers(event_file, t_observation, t_prediction, time_factor=1):
     """
-    calculate the tweet number
-    :param event_file: path to file
+    calculate the number of retweets at the observation time (=t_observation) and at the final time of prediction
+    (=t_prediction)
+    :param tweet_file: data file
     :param t_observation: observation time
-    :param t_prediction: prediction time
-    :param time_factor: factor to multiply time with, useful to convert time unit
-    :return: original number of follower, number of event and the total followers until the observation time
+    :param t_prediction: final time of prediction
+    :param time_factor: factor to convert the time unit in seconds
+    :return: tuple, containing the logarithms of, follower of an original tweet, number of followers and events until the
+    observation time, number of events until the prediction times
     """
     event_no_t_obs = 0
     follower_t = 0  # will store number of follower before observation time
@@ -65,14 +67,16 @@ def no_of_events_followers(event_file, t_observation, t_prediction, time_factor=
 
 def no_of_events_followers_in_window(event_file, t_observation, win_size, max_itr, time_factor=1):
     """
-    calculate the total number of re-tweet at the observation time and the multiple prediction time
-    :param event_file: data file
+    calculate the number of retweets at the observation time (=t_observation) and at final times of prediction
+    (=t_prediction)
+    :param tweet_file: data file
     :param t_observation: observation time
-    :param time_factor: factor to multiply time to convert the time unit in seconds
-    :param win_size: the window size for multiple prediction value
-    :param max_itr: define the iteration for the window size
-    :return: original number of follower, number of event and the total followers until the observation time and
-     multiple prediction value for the bin size
+    :param t_prediction: final time of prediction
+    :param time_factor: factor to convert the time unit in seconds
+    :param win_size: window size for prediction
+    :param max_itr: the number of windows used in prediction
+    :return: list containing  the logarithms of, follower of an original tweet, number of followers and events until the
+    observation time, number of events with their logarithms until the and prediction times
     """
     event_no_t_obs = 0
     follower_t = 0

@@ -8,8 +8,7 @@ Input are
 Here, this code reads 'Data/RT*.txt' (= filename) and all the data files are saved in (= file_list_all)
 2) Observation time (= obs_time_init).
 3) window size to consider multiple prediction time (= window_size).
-4) to run for various observation time =(iteration)
-5)
+4) k_fold cross-validation (= k_fold)
 6) mean error value obtained form LR model
 
 Output are
@@ -29,12 +28,12 @@ import matplotlib.pyplot as plt
 filename = "Data/RT*.txt"
 file_list_all = sorted(gb.glob(filename), key=numerical_sort)
 obs_time_init = 6  # observation time
-window_size = 4  # the window size for multiple prediction value
-iteration = 5  # number of time you want to run the loop
+window_size = 4  # window size for prediction
+k_fold = 5  # k-fold iteration
 mean_list = []  # save the mean value at different observation time
 time_list = []  # save the different observation time considered
 T_max = 168
-for k in range(0, iteration):
+for k in range(0, 5):
     if k == 4:
         obs_time = 72
     else:
@@ -43,7 +42,7 @@ for k in range(0, iteration):
     event_list = [no_of_events_followers_in_window(file_list_all[i], obs_time, window_size, max_value, 3600) for i in
                   range(len(file_list_all))]
     event_list = list(filter(None.__ne__, event_list))  # checking for none value
-    result_lr = cross_validation_error(5, event_list, max_value)
+    result_lr = cross_validation_error(k_fold, event_list, max_value)
     mean_list.append(result_lr[1])
     time_list.append(obs_time)
     print("Time:", obs_time, ", median:", int(result_lr[0]), ", mean:", int(result_lr[1]),
