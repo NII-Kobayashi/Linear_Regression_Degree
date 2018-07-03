@@ -1,16 +1,16 @@
 """
-This code trains the multiple linear regression model parameters (alpha, variance, beta_r, beta_n, beta_0)
-based on a re-tweet data-set (data/training/RT*.txt), assuming the parameters are same in the data-set.
+This code trains the linear regression with degree based on a retweet dataset (data/training/RT*.txt),
+assuming the parameters are the same in the dataset.
 Please replace file paths according to your local directory structure.
 
 Inputs are
-1) Data file that includes the re-tweet times and the number of followers
-Here, this code reads 'Data/training/RT*.txt' (= filename) and 'Data/test/RT*.txt' (= file_name_test) for test data set.
+1) Data file that includes the retweet times and the number of followers
+   Here, this code reads 'Data/training/RT*.txt' (= filename) for training data and 'Data/test/RT*.txt' (= file_name_test) for test data.
 2) Observation time (= T_OBS).
 3) Final time of prediction (= T_PRED).
 
 Outputs is
-1) The estimated parameters (alpha and variance)
+1) The estimated parameters (alpha, variance, beta_r, beta_n, beta_0)
 2) The prediction result obtained form the model
 3) The true prediction value
 4) Error estimated

@@ -1,7 +1,7 @@
-# Prediction of Twitter re-tweet dynamic using Linear Regression Model
+# Prediction of Twitter re-tweet dynamic using Linear Regression with degree
 
 This code predicts the number of retweets in a future period used in *Kobayashi and Lambiotte, ICWSM, pp. 191-200, 2016*.
-The algorithm is a modification of Lineaer Regression method proposed in *Zhao et al., KDD, pp. 1513-1522, 2015*.
+The algorithm is a modification of Lineaer Regression with degree used in *Zhao et al., KDD, pp. 1513-1522, 2015*.
 
 
 ## Requirements
@@ -27,8 +27,7 @@ The **Linear_Regression_degree** folder contains all the core python code, examp
 ## Running some examples
 There are two example code in the directory, i.e. example.py, example_cross_validation.py
 
- - *example.py* : This code estimates the model parameters (alpha, variance, beta_r, beta_n, beta_0) from observed data
-    and predicts the number of retweets from the observation time to the final time.
+ - *example.py* : This code estimates the model parameters (alpha_t, sigma^2_t, beta^1_t, beta^2_t, beta^3_t) from observed data and predicts the number of retweets from the observation time to the final time.
  - *example_cross_validation.py* : This code evaluates the accuracy based on k-fold cross-validation.
 
 

@@ -3,7 +3,7 @@
 # For license information, see LICENSE.txt
 
 """
-Implements functions to check the accuracy of the model by using K-Fold cross- validation
+Functions for checking the accuracy of the model based on k-Fold cross-validation
 
 References
 ----------
@@ -20,8 +20,8 @@ def cross_validation_error(k_fold, event_list_data, max_value_itr):
     """
     evaluate the mean and median of the errors, and their correlations
     :param k_fold: k_fold cross-validation
-    :param event_list_data: list, containing the total no of followers, original followers, no of event at an
-    observation time and at the prediction times
+    :param event_list_data: list, containing the total number of followers, the number of followers for the tweeted
+    person, and the number of event at an observation time and at prediction times
     :param max_value_itr: the number of windows for prediction
     :return: the mean and median of the errors and their correlations
     """

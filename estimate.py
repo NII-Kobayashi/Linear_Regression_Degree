@@ -3,12 +3,11 @@
 # For license information, see LICENSE.txt
 
 """
-Implements functions for estimating the parameters (alpha, variance, beta_r, beta_n, beta_0) used in multiple linear
-regression model
+Functions for estimating the parameters (alpha_t, sigma^2_t, beta^1_t, beta^2_t, beta^3_t) of the linear regression with degree
 
 References
 ----------
-.. *Kobayashi and Lambiotte, ICWSM, pp. 191-200, 2016; Szabo and Huberman, Communication of the ACM 53, pp.80-88, 2010; Zhao et al., KDD, pp. 1513-1522, 2015*.
+.. *Kobayashi and Lambiotte, ICWSM, pp. 191-200, 2016; Zhao et al., KDD, pp. 1513-1522, 2015*.
 """
 
 import numpy as np
@@ -18,11 +17,12 @@ from scipy import linalg
 def parameter_estimation_lr_n(follower_orig, total_follower_t, no_events, event_pred):
     """
     Fit the parameters value for the linear regression model
-    :param follower_orig: array, containing the original number of follower at an observation time
+    :param follower_orig: array, containing the original number of follower of the original tweeting person, at an
+    observation time
     :param total_follower_t: array, containing the total number of follower until the observation time
     :param no_events: array, containing the total number of re-tweet at an the observation time
     :param event_pred: array, containing the value of total number of re-tweet at the prediction time
-    :return: the linear regression model parameters
+    :return: parameters of the linear regression with degree
     """
 
     a = np.matrix([

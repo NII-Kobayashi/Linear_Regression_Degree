@@ -3,11 +3,11 @@
 # For license information, see LICENSE.txt
 
 """
-Implements functions for calculating the number of events and number of followers within the observation time and the
+Functions for calculating the number of events and the number of followers within?? the observation time and the
 prediction time.
 
-Provides different function for calculating the number of events, with single and multiple prediction time with the
-window concept
+Provides different function for calculating the number of events for single and multiple prediction time with the
+window concept??
 
 References
 ----------
@@ -38,9 +38,10 @@ def no_of_events_followers(event_file, t_observation, t_prediction, time_factor=
     :param t_observation: observation time
     :param t_prediction: final time of prediction
     :param time_factor: factor to convert the time unit in seconds
-    :return: tuple, containing the logarithms of, follower of an original tweet, number of followers and events until the
-    observation time, number of events until the prediction times
+    :return: tuple, containing the logarithms values for the follower of an original tweeted person, number of followers
+    and events until the observation time, number of events until the prediction times
     """
+
     event_no_t_obs = 0
     follower_t = 0  # will store number of follower before observation time
     original_follower = 0
