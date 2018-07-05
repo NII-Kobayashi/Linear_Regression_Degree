@@ -1,19 +1,20 @@
 """
-This code trains the linear regression with degree based on a retweet dataset (data/training/RT*.txt),
-assuming the parameters are the same in the dataset.
+This code trains the linear regression with degree based on a retweet dataset (data/training/RT*.txt), assuming
+parameters are the same for each tweet.
 Please replace file paths according to your local directory structure.
 
 Inputs are
 1) Data file that includes the retweet times and the number of followers
-   Here, this code reads 'Data/training/RT*.txt' (= filename) for training data and 'Data/test/RT*.txt' (= file_name_test) for test data.
+   Here, this code reads 'Data/training/RT*.txt' (= filename) for training data and 'Data/test/RT*.txt' (= file_name_test)
+   for test data.
 2) Observation time (= T_OBS).
-3) Final time of prediction (= T_PRED).
+3) Prediction time (= T_PRED).
 
 Outputs is
-1) The estimated parameters (alpha, variance, beta_r, beta_n, beta_0)
-2) The prediction result obtained form the model
-3) The true prediction value
-4) Error estimated
+1) Estimated parameters (alpha_t, sigma^2_t, beta^1_t, beta^2_t, beta^3_t) (See Kobayashi and Lambiotte, ICWSM 2016).
+2) Predicted total number of retweets.
+3) Actual number of retweets at the prediction time.
+4) Prediction error.
 
 This code is developed by Niharika Singhal under the supervision of Ryota Kobayashi.
 """

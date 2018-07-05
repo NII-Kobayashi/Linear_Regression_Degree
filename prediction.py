@@ -3,7 +3,7 @@
 # For license information, see LICENSE.txt
 
 """
-Functions for predicting the number of retweets in future.
+Functions for predicting the number of retweets in future by using linear regression with degree (LR-N)
 
 References
 ----------
@@ -14,12 +14,13 @@ import math
 
 def prediction_lr_n(parameter_estimated, no_events, total_follower_t, follower_orig):
     """
-    predict the total number of re-tweet
-    :param parameter_estimated: parameter for linear regression model
-    :param no_events: array, containing the total number of re-tweet until the observation time
-    :param total_follower_t: array containing the total number of follower until the observation time
-    :param follower_orig: array containing the original number of follower of the original tweeted person
-    :return: the biased estimator
+    Predicting the total number of retweets
+    :param parameter_estimated: the parameters of linear regression with degree
+    :param no_events: array, containing the total number of retweet until an observation time for all tweet
+    :param total_follower_t: array, containing the cumulative number of followers until the observation time for all
+    tweet
+    :param follower_orig: array containing the number of followers of the original tweeting person for all tweet
+    :return: Predicted value
     """
     pe, sig = parameter_estimated
 

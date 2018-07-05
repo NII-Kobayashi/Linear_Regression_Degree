@@ -1,15 +1,15 @@
 """
-This code plot the mean error and the variance for the simple linear regression model
-based on a re-tweet data-set (data/training/RT*.txt), assuming the parameters are same in the data-set.
+This code plots the mean error and the variance for the simple linear regression model
+based on a retweet dataset (data/training/RT*.txt), assuming the parameters are the same for all the tweets.
 Please replace file paths according to your local directory structure.
-It also compare the result obtained from LR and LR-N. The result from the LR is saved in the variable =(mean_lr)
+It also compare the result obtained from linear regression and from linear regression with degree. The result of the linear regression is saved in the variable =(mean_lr)
 
 Inputs are
-1) Data file that includes the re-tweet times and the number of followers
-Here, this code reads 'Data/training/RT*.txt' (= filename) and 'Data/test/RT*.txt' (= file_name_test) for test data set.
+1) Data file that includes the retweet times and the number of followers
+   (Explain me!!) Here, this code reads 'Data/training/RT*.txt' (= filename) and 'Data/test/RT*.txt' (= file_name_test) for test data set. (Explain me!!)
 2) Observation time (= T_OBS).
 3) Final time of prediction (= T_PRED).
-4) runtime for the T_OBS interval of 6 hours
+4) (Explain me!!) Runtime for the T_OBS interval of 6 hours (Explain me!!)
 5) Mean error value obtained from LR model
 
 Outputs is

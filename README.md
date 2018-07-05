@@ -27,7 +27,7 @@ The **Linear_Regression_degree** folder contains all the core python code, examp
 ## Running some examples
 There are two example code in the directory, i.e. example.py, example_cross_validation.py
 
- - *example.py* : This code estimates the model parameters (alpha_t, sigma^2_t, beta^1_t, beta^2_t, beta^3_t) from observed data and predicts the number of retweets from the observation time to the final time.
+ - *example.py* : This code estimates the model parameters (alpha_t, sigma^2_t, beta^1_t, beta^2_t, beta^3_t) (See Kobayashi and Lambiotte 2016) from observed data and predicts the number of retweets from the observation time to the final time.
  - *example_cross_validation.py* : This code evaluates the accuracy based on k-fold cross-validation.
 
 
@@ -44,7 +44,7 @@ readable and understandable.
  - *estimate.py* : functions for estimating the model parameters.
  - *prediction.py* : function for predicting the number of retweets in a future period.
  - *cross_validation.py* : function for evaluating the accuracy based on cross-validation.
- - *functions.py* :  function for calculating the number of retweets and for sorting the file names numerically
+ - *functions.py* :  function for calculating the number of retweets and for sorting the file names in numeric order. 
 
 
 ## Data source

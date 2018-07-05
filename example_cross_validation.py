@@ -1,20 +1,18 @@
 """
-This code evaluates the multiple linear regression model parameters, based on a re-tweet data-set
-(Data/training/RT*.txt), assuming the parameters are same in the data-set.
+This code evaluates the linear regression with degree, based on retweets dataset (Data/training/RT*.txt),
+assuming parameters are the same for each tweet.
 Please replace file paths according to your local directory structure.
 
 Input are
-1) Data file that includes the re-tweet times and the number of followers
-Here, this code reads 'Data/RT*.txt' (= filename) and all the data files are saved in (= file_list_all)
+1) Data file that includes the retweet times and the number of followers.
+   Here, this code reads the training dataset 'Data/RT*.txt' (= filename) and all the data files are saved in (= file_list_all)
 2) Observation time (= obs_time_init).
-3) window size to consider multiple prediction time (= window_size).
-4) k_fold cross-validation (= k_fold)
-6) mean error value obtained form LR model
+3) Width of the window for predicting retweet time series (= window_size).
+4) k_fold cross-validation (= k_fold).
 
 Output are
-1) Errors evaluated via Cross-Validation.
-2) plot the mean error at different observation time
-3) compare the LR and LR-N model
+1) Errors evaluated based on Cross-Validation.
+2) Plot the mean prediction error for different observation times. 
 
 This code is developed by Niharika Singhal under the supervision of Ryota Kobayashi.
 """
@@ -57,13 +55,3 @@ plt.ylim(0)
 plt.title("Mean Error plot for LR model")
 plt.show()
 
-# mean list value from LR model
-mean_list_Lr = [2509.7516737808041, 1656.3533519585494, 915.68157126246001, 397.26486540755758, 223.70001051034552]
-plt.plot(time_list,  mean_list, time_list,  mean_list_Lr, 'r', linewidth=1.3, alpha=0.8)
-plt.xlabel('T(hour) observation time')
-plt.ylabel('Mean absolute error')
-plt.ylim(0)
-plt.title("Comparison of the LR and LR-N value")
-plt.legend(['LR-N', 'LR'], loc='best', fancybox=True, shadow=True)
-plt.grid(True)
-plt.show()

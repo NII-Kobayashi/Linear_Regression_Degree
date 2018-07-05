@@ -3,7 +3,8 @@
 # For license information, see LICENSE.txt
 
 """
-Functions for estimating the parameters (alpha_t, sigma^2_t, beta^1_t, beta^2_t, beta^3_t) of the linear regression with degree
+Functions for estimating the parameters (alpha_t, sigma^2_t, beta^1_t, beta^2_t, beta^3_t) of the linear regression with
+degree (LR-N)
 
 References
 ----------
@@ -16,13 +17,12 @@ from scipy import linalg
 
 def parameter_estimation_lr_n(follower_orig, total_follower_t, no_events, event_pred):
     """
-    Fit the parameters value for the linear regression model
-    :param follower_orig: array, containing the original number of follower of the original tweeting person, at an
-    observation time
-    :param total_follower_t: array, containing the total number of follower until the observation time
-    :param no_events: array, containing the total number of re-tweet at an the observation time
-    :param event_pred: array, containing the value of total number of re-tweet at the prediction time
-    :return: parameters of the linear regression with degree
+    Fit the parameters of the linear regression with degree
+    :param follower_orig: array, containing the number of followers of the original tweeting person for all tweet (d_0).
+    :param total_follower_t: array, containing the cumulative number of followers at an observation time for all tweet (D(T)).
+    :param no_events: array, containing the total number of retweets at an observation time (R(T) ) for all tweet.
+    :param event_pred: array, containing the total number of retweets at a prediction time (R(t) ) for all tweet.
+    :return: parameters of the linear regression with degree.
     """
 
     a = np.matrix([
