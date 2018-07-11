@@ -5,8 +5,8 @@
 """
 Functions for calculating the total number of retweets and the number of followers.
 
-Two functions for calculating the number of retweets for different width of window for predicting retweet time series
-(base?? for single and multiple prediction period using a window).
+Functions for predicting the number of retweets in a future period based on a single window (no_of_events_followers) or
+multiple windows (no_of_events_followers_in_window).
 
 References
 ----------
@@ -32,13 +32,14 @@ def numerical_sort(value):
 def no_of_events_followers(event_file, t_observation, t_prediction, time_factor=1):
     """
     calculate the number of retweets at an observation time (=t_observation) and the prediction time (=t_prediction)
-    :param tweet_file: data file
+    based on a single window
+    :param tweet_file: data file for retweets
     :param t_observation: an observation time
     :param t_prediction: the prediction time
     :param time_factor: the factor to convert the time unit in seconds
-    :return: tuple, containing the logarithm of the followers of an original tweeted person (log(d_0) ), the logarithm
-    of the cumulative number of followers (log(D(T)) ), the logarithm of the number of retweets until an observation
-    time (log(R(T)) ), the number of retweets until the prediction times (R(t) ), and its logarithm (log(R(t)) )
+    :return: tuple, containing the logarithm of the followers of an original tweeted person (log(d_0)), the logarithm
+    of the cumulative number of followers (log(D(T))), the logarithm of the number of retweets at an observation
+    time (log(R(T))), the number of retweets at the prediction times (R(t) ), and its logarithm (log(R(t)))
     """
 
     event_no_t_obs = 0
@@ -67,17 +68,17 @@ def no_of_events_followers(event_file, t_observation, t_prediction, time_factor=
 
 def no_of_events_followers_in_window(event_file, t_observation, win_size, max_itr, time_factor=1):
     """
-    calculate the number of retweets at an observation time (=t_observation) and at the  prediction times
-    (=t_prediction)
-    :param tweet_file: data file
+    calculate the number of retweets at an observation time (=t_observation) and at the  prediction times (=t_prediction)
+    based on multiple windows.
+    :param tweet_file: data file for retweets
     :param t_observation: observation time
     :param t_prediction: prediction times
     :param time_factor: factor to convert the time unit in seconds
     :param win_size: window size for prediction
     :param max_itr: the number of windows used in prediction
-    :return: list, containing the logarithm of the followers of an original tweeted person (log(d_0) ), the logarithm
-    of the cumulative number of followers (log(D(T)) ), the logarithm of the number of retweets until an observation
-    time (log(R(T)) ), the number of retweets until the prediction times (R(t) ), and its logarithm (log(R(t)) )
+    :return: list, containing the logarithm of the followers of an original tweeted person (log(d_0)), the logarithm
+    of the cumulative number of followers (log(D(T))), the logarithm of the number of retweets at an observation
+    time (log(R(T))), the number of retweets until the prediction times (R(t)), and its logarithm (log(R(t)))
     """
     event_no_t_obs = 0
     follower_t = 0

@@ -20,7 +20,7 @@ def prediction_lr_n(parameter_estimated, no_events, total_follower_t, follower_o
     :param total_follower_t: array, containing the cumulative number of followers until the observation time for all
     tweet
     :param follower_orig: array containing the number of followers of the original tweeting person for all tweet
-    :return: Predicted value
+    :return: Predicted number of retweets
     """
     pe, sig = parameter_estimated
 

@@ -1,6 +1,6 @@
 """
 This code trains the linear regression with degree based on a retweet dataset (data/training/RT*.txt), assuming
-parameters are the same for each tweet.
+parameters are the same for all tweets.
 Please replace file paths according to your local directory structure.
 
 Inputs are
