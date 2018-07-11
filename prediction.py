@@ -16,10 +16,10 @@ def prediction_lr_n(parameter_estimated, no_events, total_follower_t, follower_o
     """
     Predicting the total number of retweets
     :param parameter_estimated: the parameters of linear regression with degree
-    :param no_events: array, containing the total number of retweet until an observation time for all tweet
+    :param no_events: array, containing the total number of retweet until an observation time for all tweets
     :param total_follower_t: array, containing the cumulative number of followers until the observation time for all
-    tweet
-    :param follower_orig: array containing the number of followers of the original tweeting person for all tweet
+    tweets
+    :param follower_orig: array, containing the number of followers of the original tweeting person for all tweets
     :return: Predicted number of retweets
     """
     pe, sig = parameter_estimated
