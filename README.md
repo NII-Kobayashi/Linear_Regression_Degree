@@ -15,7 +15,7 @@ The algorithm is a modification of Linear Regression with degree used in *Zhao e
 
 The git repository can be cloned by simply using:
 
-    git clone <TODO>
+    git clone https://github.com/NII-Kobayashi/Linear_Regression_Degree.git
 
 Once the repository is cloned, the folder should contain two different
 sub-folders and this README file.
